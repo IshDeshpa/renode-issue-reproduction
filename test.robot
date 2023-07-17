@@ -4,6 +4,7 @@ Suite Teardown                Teardown
 Test Setup                    Reset Emulation
 Test Teardown                 Test Teardown
 Resource                      ${RENODEKEYWORDS}
+Library    Telnet
 
 *** Variables ***
 ${SCRIPT}                     ${CURDIR}/test.resc
@@ -20,8 +21,9 @@ Load Script
 Should Run Test Case
     Load Script
     Start Emulation
-    Wait For Prompt On Uart     uart:~$
-    Write Line To Uart
-    Wait For Prompt On Uart     uart:~$
-    Write Line To Uart          demo ping
-    Wait For Line On Uart       pong
+    Wait For Prompt On Uart     Set ADC
+    Execute Command             sysbus.adc FeedSample 4095 10 -1
+    Execute Command             sysbus.adc FeedSample 2000 11 -1
+    Wriite Line To Uart         Print ADC Value
+    Wait For Line On Uart       10: 4095
+    Wait For Line On Uart       11: 2000

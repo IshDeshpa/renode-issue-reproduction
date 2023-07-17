@@ -3,15 +3,15 @@
 # Make this repository as self contained as possible.
 #
 
-$name?="Mi-V"
+$name?="stm32"
 
 using sysbus
 mach create $name
-machine LoadPlatformDescription @platforms/boards/miv-board.repl
+machine LoadPlatformDescription @stm32f413.repl
 
-$bin?=@https://dl.antmicro.com/projects/renode/shell-demo-miv.elf-s_803248-ea4ddb074325b2cc1aae56800d099c7cf56e592a
+$bin?=@artifacts/output.elf
 
-showAnalyzer uart
+showAnalyzer usart2
 
 macro reset
 """
