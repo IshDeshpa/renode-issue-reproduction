@@ -4,12 +4,13 @@
 #
 
 $name?="stm32"
+$platform=$ORIGIN/stm32f413.repl
 
 using sysbus
 mach create $name
-machine LoadPlatformDescription @stm32f413.repl
+machine LoadPlatformDescription $platform
 
-$bin?=@artifacts/output.elf
+$bin?=$ORIGIN/artifacts/output.elf
 
 showAnalyzer usart2
 
