@@ -19,7 +19,10 @@ jobs:
 
         # Fill up with your requirements
       - name: Prepare build dependencies
-        run: sudo apt install curl -y
+        run: /
+          sudo apt -y update
+          sudo apt install curl -y
+          sudo apt -y install gcc-arm-none-eabi
 
 
       - name: Prepare Python dependencies
