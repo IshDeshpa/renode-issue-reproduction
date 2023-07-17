@@ -19,7 +19,7 @@ jobs:
 
         # Fill up with your requirements
       - name: Prepare build dependencies
-        run: /
+        run: |
           sudo apt -y update
           sudo apt install curl -y
           sudo apt -y install gcc-arm-none-eabi
