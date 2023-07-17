@@ -17,5 +17,7 @@ int main(){
     printf("10: %d", adc_get(CHAN_TEN));
     printf("11: %d", adc_get(CHAN_ELEVEN));
 
+    printf("End Test");
+
     return 0;
 }
