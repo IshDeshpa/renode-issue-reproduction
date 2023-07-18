@@ -45,7 +45,7 @@ jobs:
 
 
       - name: Run tests on latest Renode
-        uses: antmicro/renode-test-action@v2.0.0
+        uses: antmicro/renode-test-action@v3.0.0
         with:
             renode-version: 'latest'
             tests-to-run: 'test.robot'
@@ -54,7 +54,6 @@ jobs:
 
       - name: Archive latest results
         uses: actions/upload-artifact@v2
-        if: always()
         with:
             name: test-results-latest
             path: |
@@ -64,8 +63,7 @@ jobs:
 
 
       - name: Run tests on Renode stable release
-        uses: antmicro/renode-test-action@v2.0.0
-        if: always()
+        uses: antmicro/renode-test-action@v3.0.0
         with:
             renode-version: '1.13.3'
             tests-to-run: 'test.robot'
@@ -74,7 +72,6 @@ jobs:
 
       - name: Archive Renode release results
         uses: actions/upload-artifact@v2
-        if: always()
         with:
             name: test-results-stable
             path: |

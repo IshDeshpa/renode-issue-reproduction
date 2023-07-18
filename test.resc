@@ -10,7 +10,7 @@ using sysbus
 mach create $name
 machine LoadPlatformDescription $platform
 
-$bin?=$ORIGIN/Objects/output.elf
+$bin?=$ORIGIN/artifacts/output.elf
 
 showAnalyzer usart2
 
@@ -19,7 +19,3 @@ macro reset
     sysbus LoadELF $bin
 """
 runMacro $reset
-logLevel 3
-
-emulation CreateServerSocketTerminal 49152 "ldr-uart-con" false
-connector Connect sysbus.usart2 ldr-uart-con

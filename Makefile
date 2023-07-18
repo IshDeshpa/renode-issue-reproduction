@@ -14,7 +14,7 @@ OPT = -Og
 # paths
 #######################################
 # Build path
-BUILD_DIR = Objects
+BUILD_DIR = artifacts
 
 ######################################
 # source

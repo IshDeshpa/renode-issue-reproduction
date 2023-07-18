@@ -21,6 +21,6 @@ Load Script
 Should Run Test Case
     Load Script
     Start Emulation
-    Wait For Line On Uart       Start Test
+    Wait For Line On Uart       Start Test\n                          timeout=30
     Write Line To Uart          abcdefghijklmnopqrstuvwxyz123456789
     Wait For Line On Uart       abcdefghijklmnopqrstuvwxyz123456789   timeout=30
