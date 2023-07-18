@@ -21,9 +21,6 @@ Load Script
 Should Run Test Case
     Load Script
     Start Emulation
-    Wait For Line On Uart       Set ADC
-    Execute Command             sysbus.adc FeedSample 4095 10 -1
-    Execute Command             sysbus.adc FeedSample 2000 11 -1
-    Write Line To Uart          Print ADC Value
-    Wait For Line On Uart       10: 4095
-    Wait For Line On Uart       11: 2000
+    Wait For Line On Uart       Start Test
+    Write Line To Uart          abcdefghijklmnopqrstuvwxyz123456789
+    Wait For Line On Uart       abcdefghijklmnopqrstuvwxyz123456789   timeout=30

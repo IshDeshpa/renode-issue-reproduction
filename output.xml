@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.1 (Python 3.10.6 on linux)" generated="20230718 05:29:12.459" rpa="false" schemaversion="2">
+<suite id="s1" name="Test" source="/home/ishdeshpa/LHR/renode-issue-reproduction/test.robot">
+<kw name="Setup" library="renode-keywords" type="SETUP">
+<kw name="Evaluate" library="BuiltIn">
+<var>${SYSTEM}</var>
+<arg>platform.system()</arg>
+<arg>modules=platform</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230718 05:29:12.876" level="INFO">${SYSTEM} = Linux</msg>
+<status status="PASS" starttime="20230718 05:29:12.861" endtime="20230718 05:29:12.918"/>
+</kw>
+<kw name="Set Variable If" library="BuiltIn">
+<var>${CONFIGURATION}</var>
+<arg>not ${SKIP_RUNNING_SERVER} and ${SERVER_REMOTE_DEBUG}</arg>
+<arg>Debug</arg>
+<arg>${CONFIGURATION}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<msg timestamp="20230718 05:29:12.947" level="INFO">${CONFIGURATION} = Release</msg>
+<status status="PASS" starttime="20230718 05:29:12.930" endtime="20230718 05:29:12.955"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{PARAMS}</var>
+<arg>--robot-server-port</arg>
+<arg>${PORT_NUMBER}</arg>
+<arg>--hide-log</arg>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230718 05:29:12.957" level="INFO">@{PARAMS} = [ --robot-server-port | 9999 | --hide-log ]</msg>
+<status status="PASS" starttime="20230718 05:29:12.955" endtime="20230718 05:29:12.957"/>
+</kw>
+<if>
+<branch type="IF" condition="${DISABLE_XWT}">
+<kw name="Insert Into List" library="Collections">
+<arg>${PARAMS}</arg>
+<arg>0</arg>
+<arg>--disable-xwt</arg>
+<doc>Inserts ``value`` into ``list`` to the position specified with ``index``.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:12.959" endtime="20230718 05:29:12.960"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:12.958" endtime="20230718 05:29:12.960"/>
+</branch>
+<status status="PASS" starttime="20230718 05:29:12.958" endtime="20230718 05:29:12.961"/>
+</if>
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER}">
+<kw name="File Should Exist" library="OperatingSystem">
+<arg>${DIRECTORY}/${BINARY_NAME}</arg>
+<arg>msg=Robot Framework remote server binary not found (${DIRECTORY}/${BINARY_NAME}). Did you forget to build it in ${CONFIGURATION} configuration?</arg>
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<msg timestamp="20230718 05:29:12.976" level="FAIL">Robot Framework remote server binary not found (/usr/share/renode_portable/tests/../output/bin/Release/Renode.exe). Did you forget to build it in Release configuration?</msg>
+<status status="FAIL" starttime="20230718 05:29:12.962" endtime="20230718 05:29:12.990"/>
+</kw>
+<status status="FAIL" starttime="20230718 05:29:12.961" endtime="20230718 05:29:12.991"/>
+</branch>
+<status status="FAIL" starttime="20230718 05:29:12.961" endtime="20230718 05:29:12.992"/>
+</if>
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER} and not ${SERVER_REMOTE_DEBUG} and not '${SYSTEM}' == 'Windows' and not ${NET_PLATFORM}">
+<kw name="Start Process" library="Process">
+<arg>mono</arg>
+<arg>${BINARY_NAME}</arg>
+<arg>@{PARAMS}</arg>
+<arg>cwd=${DIRECTORY}</arg>
+<doc>Starts a new process on background.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.008" endtime="20230718 05:29:13.009"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:12.992" endtime="20230718 05:29:13.010"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:12.992" endtime="20230718 05:29:13.011"/>
+</if>
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER} and not ${SERVER_REMOTE_DEBUG} and '${SYSTEM}' == 'Windows'">
+<kw name="Start Process" library="Process">
+<arg>${BINARY_NAME}</arg>
+<arg>@{PARAMS}</arg>
+<arg>cwd=${DIRECTORY}</arg>
+<arg>shell=true</arg>
+<doc>Starts a new process on background.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.012" endtime="20230718 05:29:13.012"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.011" endtime="20230718 05:29:13.013"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.011" endtime="20230718 05:29:13.013"/>
+</if>
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER} and not ${SERVER_REMOTE_DEBUG} and ${NET_PLATFORM}">
+<kw name="Start Process" library="Process">
+<arg>dotnet ${BINARY_NAME}</arg>
+<arg>@{PARAMS}</arg>
+<arg>cwd=${DIRECTORY}</arg>
+<arg>shell=true</arg>
+<doc>Starts a new process on background.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.014" endtime="20230718 05:29:13.014"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.013" endtime="20230718 05:29:13.016"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.013" endtime="20230718 05:29:13.017"/>
+</if>
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER} and ${SERVER_REMOTE_DEBUG} and not '${SYSTEM}' == 'Windows' and not ${NET_PLATFORM}">
+<kw name="Start Process" library="Process">
+<arg>mono</arg>
+<arg>--debug</arg>
+<arg>--debugger-agent\=transport\=dt_socket,address\=0.0.0.0:${SERVER_REMOTE_PORT},server\=y,suspend\=${SERVER_REMOTE_SUSPEND}</arg>
+<arg>${BINARY_NAME}</arg>
+<arg>@{PARAMS}</arg>
+<arg>cwd=${DIRECTORY}</arg>
+<doc>Starts a new process on background.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.030" endtime="20230718 05:29:13.048"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.017" endtime="20230718 05:29:13.060"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.017" endtime="20230718 05:29:13.060"/>
+</if>
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER} and ${SERVER_REMOTE_DEBUG} and '${SYSTEM}' == 'Windows'">
+<kw name="Fatal Error" library="BuiltIn">
+<arg>Windows doesn't support server remote debug option.</arg>
+<doc>Stops the whole test execution.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.079" endtime="20230718 05:29:13.081"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.061" endtime="20230718 05:29:13.105"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.060" endtime="20230718 05:29:13.110"/>
+</if>
+<if>
+<branch type="IF" condition="not '${SYSTEM}' == 'Windows'">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>60s</arg>
+<arg>1s</arg>
+<arg>Import Library</arg>
+<arg>Remote</arg>
+<arg>http://127.0.0.1:${PORT_NUMBER}/</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.121" endtime="20230718 05:29:13.122"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.111" endtime="20230718 05:29:13.123"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.111" endtime="20230718 05:29:13.159"/>
+</if>
+<if>
+<branch type="IF" condition="'${SYSTEM}' == 'Windows'">
+<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
+<arg>60s</arg>
+<arg>1s</arg>
+<arg>Import Library</arg>
+<arg>Remote</arg>
+<arg>http://localhost:${PORT_NUMBER}/</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.160" endtime="20230718 05:29:13.161"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.159" endtime="20230718 05:29:13.161"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.159" endtime="20230718 05:29:13.162"/>
+</if>
+<kw name="Set Default Uart Timeout">
+<arg>${DEFAULT_UART_TIMEOUT}</arg>
+<status status="NOT RUN" starttime="20230718 05:29:13.219" endtime="20230718 05:29:13.220"/>
+</kw>
+<if>
+<branch type="IF" condition="${SAVE_LOG_ON_FAIL}">
+<kw name="Enable Logging To Cache">
+<status status="NOT RUN" starttime="20230718 05:29:13.290" endtime="20230718 05:29:13.297"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.223" endtime="20230718 05:29:13.297"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.223" endtime="20230718 05:29:13.298"/>
+</if>
+<kw name="Set Variable" library="BuiltIn">
+<var>${allowed_chars}</var>
+<arg>abcdefghijklmnopqrstuvwxyz01234567890_-</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.299" endtime="20230718 05:29:13.300"/>
+</kw>
+<kw name="Convert To Lower Case" library="String">
+<var>${metrics_fname}</var>
+<arg>${SUITE_NAME}</arg>
+<doc>Converts string to lower case.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.303" endtime="20230718 05:29:13.304"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${metrics_fname}</var>
+<arg>${metrics_fname}</arg>
+<arg>${SPACE}</arg>
+<arg>_</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.306" endtime="20230718 05:29:13.307"/>
+</kw>
+<kw name="Replace String Using Regexp" library="String">
+<var>${metrics_fname}</var>
+<arg>${metrics_fname}</arg>
+<arg>[^${allowed_chars}]+</arg>
+<arg>${EMPTY}</arg>
+<doc>Replaces ``pattern`` in the given ``string`` with ``replace_with``.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.318" endtime="20230718 05:29:13.319"/>
+</kw>
+<kw name="Join Path" library="OperatingSystem">
+<var>${metrics_path}</var>
+<arg>${RESULTS_DIRECTORY}</arg>
+<arg>profiler-${metrics_fname}</arg>
+<doc>Joins the given path part(s) to the given base path.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.320" endtime="20230718 05:29:13.321"/>
+</kw>
+<if>
+<branch type="IF" condition="${CREATE_EXECUTION_METRICS}">
+<kw name="Execute Command" library="Telnet">
+<arg>EnableProfilerGlobally "${metrics_path}"</arg>
+<doc>Executes the given ``command`` and reads, logs, and returns everything until the prompt.</doc>
+<status status="NOT RUN" starttime="20230718 05:29:13.332" endtime="20230718 05:29:13.334"/>
+</kw>
+<status status="NOT RUN" starttime="20230718 05:29:13.331" endtime="20230718 05:29:13.335"/>
+</branch>
+<status status="NOT RUN" starttime="20230718 05:29:13.330" endtime="20230718 05:29:13.335"/>
+</if>
+<kw name="Reset Emulation">
+<status status="NOT RUN" starttime="20230718 05:29:13.382" endtime="20230718 05:29:13.385"/>
+</kw>
+<status status="FAIL" starttime="20230718 05:29:12.853" endtime="20230718 05:29:13.386"/>
+</kw>
+<test id="s1-t1" name="Should Run Test Case">
+<status status="FAIL" starttime="20230718 05:29:13.387" endtime="20230718 05:29:13.390">Parent suite setup failed:
+Robot Framework remote server binary not found (/usr/share/renode_portable/tests/../output/bin/Release/Renode.exe). Did you forget to build it in Release configuration?</status>
+</test>
+<kw name="Teardown" library="renode-keywords" type="TEARDOWN">
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER}">
+<kw name="Stop Remote Server">
+<msg timestamp="20230718 05:29:13.430" level="FAIL">No keyword with name 'Stop Remote Server' found.</msg>
+<status status="FAIL" starttime="20230718 05:29:13.428" endtime="20230718 05:29:13.431"/>
+</kw>
+<status status="FAIL" starttime="20230718 05:29:13.409" endtime="20230718 05:29:13.433"/>
+</branch>
+<status status="FAIL" starttime="20230718 05:29:13.408" endtime="20230718 05:29:13.435"/>
+</if>
+<if>
+<branch type="IF" condition="not ${SKIP_RUNNING_SERVER}">
+<kw name="Wait For Process" library="Process">
+<doc>Waits for the process to complete or to reach the given timeout.</doc>
+<msg timestamp="20230718 05:29:13.457" level="FAIL">No active process.</msg>
+<status status="FAIL" starttime="20230718 05:29:13.456" endtime="20230718 05:29:13.459"/>
+</kw>
+<status status="FAIL" starttime="20230718 05:29:13.436" endtime="20230718 05:29:13.459"/>
+</branch>
+<status status="FAIL" starttime="20230718 05:29:13.435" endtime="20230718 05:29:13.460"/>
+</if>
+<status status="FAIL" starttime="20230718 05:29:13.397" endtime="20230718 05:29:13.461">Several failures occurred:
+
+1) No keyword with name 'Stop Remote Server' found.
+
+2) No active process.</status>
+</kw>
+<status status="FAIL" starttime="20230718 05:29:12.491" endtime="20230718 05:29:13.461">Suite setup failed:
+Robot Framework remote server binary not found (/usr/share/renode_portable/tests/../output/bin/Release/Renode.exe). Did you forget to build it in Release configuration?
+
+Also suite teardown failed:
+Several failures occurred:
+
+1) No keyword with name 'Stop Remote Server' found.
+
+2) No active process.</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Test">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

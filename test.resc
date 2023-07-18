@@ -23,4 +23,3 @@ logLevel 3
 
 emulation CreateServerSocketTerminal 49152 "ldr-uart-con" false
 connector Connect sysbus.usart2 ldr-uart-con
-machine StartGdbServer 3333 true
