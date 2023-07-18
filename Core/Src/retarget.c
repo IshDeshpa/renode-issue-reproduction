@@ -31,14 +31,10 @@ int _lseek(int file, int ptr, int dir)
 }
 
 // These functions are included to remove GCC warnings when compiling and are not necessary
-int _isatty(int fd) {
-    return 0;
-}
+// int _isatty(int fd) {
+//     return 0;
+// }
 
-int _fstat(int fd) {
-    return -1;
-}
-
-
-
-
+// int _fstat(int fd) {
+//     return -1;
+// }

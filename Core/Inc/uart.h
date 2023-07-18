@@ -12,4 +12,6 @@ uint32_t uart_read(char *str);
 
 uint32_t uart_write(char *str, uint32_t len);
 
+extern void USART2_IRQHandler(void);
+
 #endif

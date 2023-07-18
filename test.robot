@@ -8,7 +8,7 @@ Library    Telnet
 
 *** Variables ***
 ${SCRIPT}                     ${CURDIR}/test.resc
-${UART}                       sysbus.uart
+${UART}                       sysbus.usart2
 
 
 *** Keywords ***
@@ -21,9 +21,9 @@ Load Script
 Should Run Test Case
     Load Script
     Start Emulation
-    Wait For Prompt On Uart     Set ADC
+    Wait For Line On Uart       Set ADC
     Execute Command             sysbus.adc FeedSample 4095 10 -1
     Execute Command             sysbus.adc FeedSample 2000 11 -1
-    Wriite Line To Uart         Print ADC Value
+    Write Line To Uart          Print ADC Value
     Wait For Line On Uart       10: 4095
     Wait For Line On Uart       11: 2000

@@ -42,7 +42,7 @@ gpioPortA: GPIOPort.STM32_GPIOPort @ sysbus <0x40020000, +0x400>
     [0-15] -> exti@[0-15]
 
 spi5i2s5: SPI.STM32SPI @ sysbus 0x40015000
-    -> nvic@85
+    IRQ -> nvic@85
 
 timer11: Timers.STM32_Timer @ sysbus <0x40014800, +0x400>
     initialLimit: 0xffff
@@ -147,6 +147,7 @@ usart3: UART.STM32_UART @ sysbus <0x40004800, +0x400>
 
 usart2: UART.STM32_UART @ sysbus <0x40004400, +0x400>
     -> nvic@38
+    frequency: 4000000
 
 i2s3ext: SPI.STM32SPI @ sysbus 0x40004000
 

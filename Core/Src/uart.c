@@ -100,7 +100,7 @@ uint32_t uart_write(char *str, uint32_t len) {
     uint32_t sent = 0;
 
     USART_TypeDef *usart_handle = USART2;
-
+    
     USART_ITConfig(usart_handle, USART_IT_TC, RESET);
 
     txfifo_t *fifo = &usbTxFifo;
