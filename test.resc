@@ -2,20 +2,14 @@
 # Please change this file and test.robot to include all necessary steps to reproduce your issue.
 # Make this repository as self contained as possible.
 #
-
-$name?="stm32"
-$platform=$ORIGIN/stm32f413.repl
-
-using sysbus
-mach create $name
-machine LoadPlatformDescription $platform
-
 $bin?=$ORIGIN/artifacts/output.elf
 
-showAnalyzer usart2
+showAnalyzer sysbus.usart2
 
 macro reset
 """
     sysbus LoadELF $bin
 """
+
 runMacro $reset
+logLevel -1

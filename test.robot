@@ -2,25 +2,45 @@
 Suite Setup                   Setup
 Suite Teardown                Teardown
 Test Setup                    Reset Emulation
-Test Teardown                 Test Teardown
 Resource                      ${RENODEKEYWORDS}
-Library    Telnet
+Resource    ../renode/tests/unit-tests/demos.robot
+Task Timeout                  30 seconds
 
 *** Variables ***
 ${SCRIPT}                     ${CURDIR}/test.resc
 ${UART}                       sysbus.usart2
-
+${CREATE_SNAPSHOT_ON_FAIL}    False
+${SAVE_LOG_ON_FAIL}           False
 
 *** Keywords ***
-Load Script
-    Execute Script            ${SCRIPT}
+Load Platform
+    [Arguments]               ${path}
+    Execute Command           mach create "stm32"
+    Execute Command           machine LoadPlatformDescription @${path}
+    
+Create UART Tester
     Create Terminal Tester    ${UART}
-
+    Set Default Uart Timeout  1
 
 *** Test Cases ***
-Should Run Test Case
-    Load Script
+Will Fail UART
+    Load Platform            ${CURDIR}/stm32f413.repl
+    Execute Script           ${SCRIPT}
+    Create UART Tester
     Start Emulation
-    Wait For Line On Uart       Start Test\n                          timeout=30
-    Write Line To Uart          abcdefghijklmnopqrstuvwxyz123456789
-    Wait For Line On Uart       abcdefghijklmnopqrstuvwxyz123456789   timeout=30
+
+    Wait For Line On Uart    Start Test
+    Write Line To Uart       abcdefghi
+    Wait For Line On Uart    abcdefghi
+
+Will Succeed UART
+    Execute Command          EnsureTypeIsLoaded "Antmicro.Renode.Peripherals.UART.STM32_UART"
+    Execute Command          include @${CURDIR}/STM32_UART_Fix.cs
+    Load Platform            ${CURDIR}/stm32f413_new.repl
+    Execute Script           ${SCRIPT}
+    Create UART Tester
+    Start Emulation
+
+    Wait For Line On Uart    Start Test
+    Write Line To Uart       abcdefghi
+    Wait For Line On Uart    abcdefghi

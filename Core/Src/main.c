@@ -8,14 +8,17 @@ int main(){
     __disable_irq();
     init_uart();
     __enable_irq();
+    
+    // for(volatile int i=0; i<50000; i++);    // delay
 
-    printf("Start Test\n");
+    printf("Start Test\n\r");
 
-    while(1){
-        uart_read(read);
-        printf(read);
-        printf("\n");
-    }
+    uart_read(read);
+
+    // for(volatile int i=0; i<50000; i++);    // delay
+
+    printf(read);
+    printf("\r\n");
     
     return 0;
 }

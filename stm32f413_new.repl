@@ -84,16 +84,16 @@ adc: Analog.STM32_ADC @ sysbus 0x40012000
     IRQ -> nvic@18
     DMARequest -> dma2@0
 
-uart10: UART.STM32_UART @ sysbus <0x40011C00, 0x40011FFF>
+uart10: UART.STM32_UART_Fix @ sysbus <0x40011C00, 0x40011FFF>
     IRQ -> nvic@89
 
-uart9: UART.STM32_UART @ sysbus <0x40011800, 0x40011BFF>
+uart9: UART.STM32_UART_Fix @ sysbus <0x40011800, 0x40011BFF>
     IRQ -> nvic@88
 
-usart6: UART.STM32_UART @ sysbus <0x40011400, +0x400>
+usart6: UART.STM32_UART_Fix @ sysbus <0x40011400, +0x400>
     IRQ -> nvic@71
 
-usart1: UART.STM32_UART @ sysbus <0x40011000, +0x400>
+usart1: UART.STM32_UART_Fix @ sysbus <0x40011000, +0x400>
     IRQ -> nvic@37
 
 timer8: Timers.STM32_Timer @ sysbus <0x40010400, +0x400>
@@ -104,10 +104,10 @@ timer1: Timers.STM32_Timer @ sysbus <0x40010000, +0x400>
     initialLimit: 0xffff
     frequency: 100000000
 
-uart8: UART.STM32_UART @ sysbus <0x40007C00, 0x40007FFF>
+uart8: UART.STM32_UART_Fix @ sysbus <0x40007C00, 0x40007FFF>
     IRQ -> nvic@83
 
-uart7: UART.STM32_UART @ sysbus <0x40007800, 0x40007BFF>
+uart7: UART.STM32_UART_Fix @ sysbus <0x40007800, 0x40007BFF>
     IRQ -> nvic@82
 
 can3: CAN.STMCAN @ sysbus <0x40006C00, 0x40006FFF>
@@ -136,16 +136,16 @@ i2c1: I2C.STM32F4_I2C @ sysbus 0x40005400
     EventInterrupt -> nvic@31
     ErrorInterrupt -> nvic@32
 
-uart5: UART.STM32_UART @ sysbus <0x40005000, +0x400>
+uart5: UART.STM32_UART_Fix @ sysbus <0x40005000, +0x400>
     IRQ -> nvic@53
 
-uart4: UART.STM32_UART @ sysbus <0x40004C00, +0x400>
+uart4: UART.STM32_UART_Fix @ sysbus <0x40004C00, +0x400>
     IRQ -> nvic@52
 
-usart3: UART.STM32_UART @ sysbus <0x40004800, +0x400>
+usart3: UART.STM32_UART_Fix @ sysbus <0x40004800, +0x400>
     IRQ -> nvic@39
 
-usart2: UART.STM32_UART @ sysbus <0x40004400, +0x400>
+usart2: UART.STM32_UART_Fix @ sysbus <0x40004400, +0x400>
     IRQ -> nvic@38
 
 i2s3ext: SPI.STM32SPI @ sysbus 0x40004000
