@@ -23,8 +23,10 @@ Create UART Tester
     Set Default Uart Timeout  1
 
 *** Test Cases ***
-Will Fail UART
-    Load Platform            ${CURDIR}/stm32f413.repl
+Will Succeed UART
+    Execute Command          EnsureTypeIsLoaded "Antmicro.Renode.Peripherals.UART.STM32_UART"
+    Execute Command          include @${CURDIR}/STM32_UART_Fix.cs
+    Load Platform            ${CURDIR}/stm32f413_new.repl
     Execute Script           ${SCRIPT}
     Create UART Tester
     Start Emulation
@@ -33,10 +35,9 @@ Will Fail UART
     Write Line To Uart       abcdefghi
     Wait For Line On Uart    abcdefghi
 
-Will Succeed UART
-    Execute Command          EnsureTypeIsLoaded "Antmicro.Renode.Peripherals.UART.STM32_UART"
-    Execute Command          include @${CURDIR}/STM32_UART_Fix.cs
-    Load Platform            ${CURDIR}/stm32f413_new.repl
+# This test crashes on Test Teardown. Not sure why.
+Will Fail UART
+    Load Platform            ${CURDIR}/stm32f413.repl
     Execute Script           ${SCRIPT}
     Create UART Tester
     Start Emulation

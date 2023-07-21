@@ -6,7 +6,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-20.04
-    timeout-minutes: 40
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
@@ -45,11 +44,12 @@ jobs:
 
 
       - name: Run tests on latest Renode
+        timeout-minutes: 8
         uses: antmicro/renode-test-action@v3.0.0
         with:
             renode-version: 'latest'
             tests-to-run: 'test.robot'
-            renode-path: renode-latest
+            renode-run-path: renode-latest
 
 
       - name: Archive latest results
@@ -63,11 +63,12 @@ jobs:
 
 
       - name: Run tests on Renode stable release
+        timeout-minutes: 8
         uses: antmicro/renode-test-action@v3.0.0
         with:
             renode-version: '1.13.3'
             tests-to-run: 'test.robot'
-            renode-path: renode-1.13
+            renode-run-path: renode-1.13
 
 
       - name: Archive Renode release results

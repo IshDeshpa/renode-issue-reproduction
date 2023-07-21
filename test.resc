@@ -4,8 +4,6 @@
 #
 $bin?=$ORIGIN/artifacts/output.elf
 
-showAnalyzer sysbus.usart2
-
 macro reset
 """
     sysbus LoadELF $bin
